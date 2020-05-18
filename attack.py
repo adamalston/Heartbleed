@@ -1,38 +1,14 @@
 #!/usr/bin/python
 
-# Code originally from https://gist.github.com/eelsivart/10174134
-# Modified by Haichao Zhang
-# Last Updated: 2/12/15
-# Version 1.20
-
 # added option to the payload length of the heartbeat payload
-
 # Don't forget to "chmod 775 ./attack.py" to make the code executable 
-
-# Students can use eg. "./attack.py www.seedlabelgg.com -l 0x4001" to send the heartbeat request with payload length variable=0x4001
-
+# Use eg. "./attack.py www.seedlabelgg.com -l 0x4001" to send the heartbeat request with payload length variable=0x4001
 # The author disclaims copyright to this source code.
+# Code originally from https://gist.github.com/eelsivart/10174134
 
 
-
-import sys
-
-import struct
-
-import socket
-
-import time
-
-import select
-
-import re
-
-import time
-
-import os
-
+import sys, struct, socket, time, select, re, os
 from optparse import OptionParser
-
 
 
 options = OptionParser(usage='%prog server [options]', description='Test and exploit TLS heartbeat vulnerability aka heartbleed (CVE-2014-0160)')
