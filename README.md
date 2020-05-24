@@ -1,12 +1,10 @@
 # Heartbleed
 
-![License](https://img.shields.io/github/license/adamalston/Heartbleed?color=9cf&style=flat-square) [![HitCount](http://hits.dwyl.com/adamalston/Heartbleed.svg)](http://hits.dwyl.com/adamalston/Heartbleed)
-
 The Heartbleed bug (CVE-2014-0160) is a severe implementation flaw in the OpenSSL library, which enables attackers to steal data from the memory of the victim server. The contents of the stolen data depend on what is there in the memory of the server. It could potentially contain private keys, TLS session keys, usernames, passwords, credit cards, etc. The vulnerability is in the implementation of the Heartbeat protocol, which is used by SSL/TLS to keep the connection alive.
 
 The affected OpenSSL version range is from 1.0.1 to 1.0.1f. The version in the Ubuntu VM is 1.0.1.
 
-The Heartbleed attack is based on the Heartbeat request. This request just sends some data to the server, and the server will copy the data to its response packet, so all the data are echoed back. In the normal case, suppose that the request includes 3 bytes of data ”ABC”, so the length field has a value 3. The server will place the data in the memory, and copy 3 bytes from the beginning of the data to its response packet. In the attack scenario, the request may contain 3 bytes of data, but the length field may say 1003. When the server constructs its response packet, it copies from the starting of the data (i.e. “ABC”), but it copies 1003 bytes, instead of 3 bytes. These extra 1000 types obviously do not come from the request packet; they come from the server’s private memory, and they may contain other user’s information, secret keys, password, etc.
+The Heartbleed attack is based on the Heartbeat request. This request just sends some data to the server, and the server will copy the data to its response packet, so all the data are echoed back. In the normal case, suppose that the request includes 3 bytes of data ”ABC”, so the length field has a value 3. The server will place the data in the memory, and copy 3 bytes from the beginning of the data to its response packet. In the attack svcenario, the request may contain 3 bytes of data, but the length field may say 1003. When the server constructs its response packet, it copies from the starting of the data (i.e. “ABC”), but it copies 1003 bytes, instead of 3 bytes. These extra 1000 types obviously do not come from the request packet; they come from the server’s private memory, and they may contain other user’s information, secret keys, password, etc.
 
 <p align="center">
   <img src="assets/heartbeat.png">
@@ -99,10 +97,12 @@ if (hbtype == TLS1_HB_REQUEST)
 ```
 There is no check to determine if `pl` is valid or not. Therefore, a memory breach can occur.
 
-2 solutions:
+Potential solutions:
 - Bounds checking before `memcpy()` is executed
 - Server calculates packet size at runtime which requires additional overhead
 
 ---
 
-Thank you for your interest, this was a fun project to work on!
+Thank you for your interest, this project was fun to work on!
+
+![License](https://img.shields.io/github/license/adamalston/Heartbleed)
