@@ -97,9 +97,11 @@ if (hbtype == TLS1_HB_REQUEST)
 ```
 There is no check to determine if `pl` is valid or not. Therefore, a memory breach can occur.
 
-Potential solutions:
+Patches:
 - Bounds checking before `memcpy()` is executed
 - Server calculates packet size at runtime which requires additional overhead
+
+Patches were made in the VM but are not shown in this repo.
 
 ---
 
