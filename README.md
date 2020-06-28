@@ -90,10 +90,8 @@ if (hbtype == TLS1_HB_REQUEST)
 
 **The vulnerability lies here**
 ```c
-    // copy payload
-    memcpy(bp, pl, payload);   /* pl is the pointer which
-                                * points to the beginning
-                                * of the payload content */
+// copy payload
+memcpy(bp, pl, payload);
 ```
 There is no check to determine if `pl` is valid or not. Therefore, a memory breach can occur.
 
@@ -101,7 +99,7 @@ Patches:
 - Bounds checking before `memcpy()` is executed
 - Server calculates packet size at runtime which requires additional overhead
 
-Patches were made in the VM but are not shown in this repo.
+> Patches were made in the VM but are not shown in this repo.
 
 ---
 
